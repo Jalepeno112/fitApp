@@ -8,7 +8,7 @@ namespace fitApp
 		{
 			InitializeComponent();
 
-			MainPage = new fitAppPage();
+			MainPage = new NavigationPage(new HomePage());
 		}
 
 		protected override void OnStart()

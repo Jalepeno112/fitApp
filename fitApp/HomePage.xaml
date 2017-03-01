@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage 
+	xmlns="http://xamarin.com/schemas/2014/forms" 
+	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+	x:Class="fitApp.HomePage"
+	Title="fitApp">
+	<ContentPage.Resources>
+		<ResourceDictionary>
+			<Style x:Key="frameStyle" TargetType="Frame">
+		        <Setter Property="HorizontalOptions"
+		                Value="FillAndExpand" />
+		        <Setter Property="VerticalOptions"
+		                Value="FillAndExpand" />    
+	        </Style>
+			<Style x:Key="labelStyle" TargetType="Label">
+				 <Setter Property="HorizontalOptions"
+		                Value="Center" />
+		        <Setter Property="VerticalOptions"
+		                Value="End" />
+				<Setter Property="FontSize"
+						Value="Medium" />
+				<Setter Property="TextColor"
+						Value="White" />
+			</Style>
+		</ResourceDictionary>
+	</ContentPage.Resources>
+	<ContentPage.Content>
+		<Grid>
+			<Grid.RowDefinitions>
+				<RowDefinition Height="1*"></RowDefinition>
+				<RowDefinition Height="1*"></RowDefinition>
+				<RowDefinition Height="2*"></RowDefinition>
+			</Grid.RowDefinitions>
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="1*"></ColumnDefinition>
+				<ColumnDefinition Width="1*"></ColumnDefinition>
+			</Grid.ColumnDefinitions>
+			<Frame 
+				x:Name="toCalendar"
+				BackgroundColor="Purple"
+				HorizontalOptions="FillAndExpand" 
+				VerticalOptions="FillAndExpand"
+				Grid.Row="0" Grid.Column="0">
+				<StackLayout>
+					<Image Source="https://maxcdn.icons8.com/iOS7/PNG/75/Time_And_Date/calendar-75.png"></Image>
+					<Label Text="Calendar" Style="{StaticResource labelStyle}"></Label>
+				</StackLayout>
+			</Frame>
+			<Frame 
+				x:Name="toAnalytics"
+				BackgroundColor="Lime" 
+				HorizontalOptions="FillAndExpand" 
+				VerticalOptions="FillAndExpand"
+				Grid.Row="0" Grid.Column="1">
+				<StackLayout>
+					<Image Source="https://maxcdn.icons8.com/iOS7/PNG/75/Data/line_chart-75.png"></Image>
+					<Label Text="Analytics" Style="{StaticResource labelStyle}"></Label>
+				</StackLayout>
+			</Frame>
+			<Frame 
+				x:Name="toGoals"
+				BackgroundColor="Blue" 
+				HorizontalOptions="FillAndExpand" 
+				VerticalOptions="FillAndExpand"
+				Grid.Row="1" Grid.Column="0">
+				<StackLayout>
+					<Image Source="https://maxcdn.icons8.com/iOS7/PNG/75/Data/bar_chart_filled-75.png"></Image>
+					<Label Text="Goals" Style="{StaticResource labelStyle}"></Label>
+				</StackLayout>
+			</Frame>
+			<Frame 
+				x:Name="toTimer"
+				BackgroundColor="Aqua"
+				HorizontalOptions="FillAndExpand" 
+				VerticalOptions="FillAndExpand"
+				Grid.Row="1" Grid.Column="1">
+				<StackLayout>
+					<Image Source="https://maxcdn.icons8.com/iOS7/PNG/75/Time_And_Date/timer-75.png"></Image>
+					<Label Text="Timer" Style="{StaticResource labelStyle}"></Label>
+				</StackLayout>
+			</Frame>
+			<Frame 
+				BackgroundColor="Red" 
+				HorizontalOptions="FillAndExpand" 
+				VerticalOptions="FillAndExpand"
+				Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2">
+				<StackLayout>
+					<Image Source="https://maxcdn.icons8.com/iOS7/PNG/100/Media_Controls/play_filled-100.png" 
+						WidthRequest="300" 
+						HorizontalOptions="FillAndExpand">
+					</Image>
+					<Label Text="Start Workout" Style="{StaticResource labelStyle}"></Label>
+				</StackLayout>
+			</Frame>
+		</Grid>
+
+	</ContentPage.Content>
+</ContentPage>
