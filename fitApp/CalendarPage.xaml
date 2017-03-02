@@ -1,5 +1,62 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="fitApp.CalendarPage">
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage 
+	xmlns="http://xamarin.com/schemas/2014/forms" 
+	xmlns:local="clr-namespace:fitApp"
+	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+	xmlns:sys="clr-namespace:System;assembly=mscorlib"
+	xmlns:controls="clr-namespace:XamForms.Controls;assembly=XamForms.Controls.Calendar"
+	x:Class="fitApp.CalendarPage"
+	Title="Calendar">
+	<ContentPage.Resources>
+	</ContentPage.Resources>
 	<ContentPage.Content>
+		<StackLayout x:Name="MainContent">
+			<controls:Calendar
+				Padding="10,10,10,10" 
+				VerticalOptions="FillAndExpand"
+					SelectedBorderWidth="4" 
+					DisabledBorderColor="Black"
+					ShowNumberOfWeek="false"
+					StartDay="Monday"
+					StartDate="{x:Static sys:DateTime.Now}"
+					TitleLabelTextColor="Purple"
+					TitleLeftArrowTextColor="Blue"
+					SelectedDate="{Binding Date}"
+					DateCommand="{Binding DateChosen}"/>
+			<StackLayout x:Name="Controls" Orientation="Horizontal">
+				<Button x:Name="EditBtn" Text="Edit Workout" HorizontalOptions="FillAndExpand"></Button>
+			</StackLayout>
+
+			<local:WorkoutItemView WorkoutList="{Binding Workout}" VerticalOptions="End">
+			</local:WorkoutItemView>
+
+
+		</StackLayout>
 	</ContentPage.Content>
+
+		
 </ContentPage>
+
+
+<!--
+<ListView 
+				x:Name="DisplayWorkout" 
+				ItemsSource="{Binding Workout}"
+				HasUnevenRows="true"
+				>
+
+				<ListView.ItemTemplate>
+					<DataTemplate>
+						<ViewCell>
+							<StackLayout>
+								<Label Text="{Binding Name}" FontSize="Medium"></Label>
+								<StackLayout Orientation="Horizontal">
+									<Label HorizontalOptions="Start" Text="{Binding Unit}" FontSize="Small"></Label>
+									<Label Text="{Binding Set, Converter={StaticResource workItemConverter}}" FontSize="Small"></Label>
+								</StackLayout>
+							</StackLayout>
+						</ViewCell>
+					</DataTemplate>
+				</ListView.ItemTemplate>
+			</ListView>
+			-->

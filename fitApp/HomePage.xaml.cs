@@ -42,6 +42,13 @@ namespace fitApp
 				await Navigation.PushAsync(new TimerPage());
 			};
 			toTimer.GestureRecognizers.Add(sendToTimer);
+
+			var sendToStart = new TapGestureRecognizer();
+			sendToStart.Tapped += async (s, e) =>
+			{
+				await Navigation.PushAsync(new StartPage());
+			};
+			toStart.GestureRecognizers.Add(sendToStart);
 		}
 	}
 }
