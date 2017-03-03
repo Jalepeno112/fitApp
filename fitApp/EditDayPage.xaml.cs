@@ -7,9 +7,18 @@ namespace fitApp
 {
 	public partial class EditDayPage : ContentPage
 	{
-		public EditDayPage()
+		public EditDayPage(CalendarVM vm)
 		{
+			this.BindingContext = vm;
 			InitializeComponent();
+
+		}
+
+		public void onEnter(Object sender, EventArgs e)
+		{
+			// here is where we will update our SQLite
+			// for know, we do it in memory
+
 		}
 	}
 }

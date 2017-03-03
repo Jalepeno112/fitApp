@@ -80,6 +80,7 @@
 				</StackLayout>
 			</Frame>
 			<Frame 
+				x:Name="toStart"
 				BackgroundColor="Red" 
 				HorizontalOptions="FillAndExpand" 
 				VerticalOptions="FillAndExpand"

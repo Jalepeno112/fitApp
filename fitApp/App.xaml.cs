@@ -1,5 +1,7 @@
 ﻿using Xamarin.Forms;
 
+using XamForms.Controls;
+
 namespace fitApp
 {
 	public partial class App : Application
