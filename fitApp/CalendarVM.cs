@@ -133,16 +133,29 @@ namespace fitApp
 						}
 						if (String.Compare(e.StyleId, "ItemName") == 0)
 						{
+							if (String.Compare(e.Text, "") == 0 || e.Text == null)
+							{
+								return;
+							}
 							wi.Name = e.Text;
 							e.Text = "";
 						}
 						else if (String.Compare(e.StyleId, "ItemUnit") == 0)
 						{
+							if (String.Compare(e.Text, "") == 0 || e.Text == null)
+							{
+								return;
+							}
 							wi.Unit = e.Text;
 							e.Text = "";
 						}
 						else if (String.Compare(e.StyleId, "Reps") == 0)
 						{
+
+							if (String.Compare(e.Text, "") == 0 || e.Text == null)
+							{
+								return;
+							}
 							ObservableCollection<double> reps = new ObservableCollection<double>();
 							List<string> split = new List<string>(e.Text.Split(','));
 							foreach (string s in split)
