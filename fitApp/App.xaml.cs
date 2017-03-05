@@ -9,7 +9,6 @@ namespace fitApp
 		public App()
 		{
 			InitializeComponent();
-
 			MainPage = new NavigationPage(new HomePage());
 		}
 
