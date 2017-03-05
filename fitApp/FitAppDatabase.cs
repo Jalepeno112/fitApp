@@ -77,6 +77,13 @@ namespace fitApp
 				Amount = 30.0
 			});
 		}
+
+		//Gets the list of unique exercises that the user has entered
+		public IEnumerable<WorkoutItemDB> GetExercises()
+		{
+			return _connection.Query<WorkoutItemDB>("SELECT DISTINCT [Name] FROM [WorkoutItemDB]");
+		}
+
 		public ObservableCollection<WorkoutItem> GetWorkouts(DateTime date)
 		{
 			// pull the workout items out of the database and convert them to the WorkoutItem class
@@ -116,6 +123,43 @@ namespace fitApp
 
 			return coll;
 		}
+
+		// Get the workouts based on the name of the exercise
+		public ObservableCollection<WorkoutItem> GetWorkouts(string name)
+		{
+			ObservableCollection<WorkoutItem> coll = new ObservableCollection<WorkoutItem>();
+			List<WorkoutItemDB> l = _connection.Query<WorkoutItemDB>("SELECT * FROM [WorkoutItemDB] WHERE [Name] = ? ORDER BY [Date]", name);
+
+			System.Diagnostics.Debug.WriteLine("FETCHED: " + l.Count);
+
+			// convert the DB items into WorkoutItems for the view
+			foreach (WorkoutItemDB i in l)
+			{
+				System.Diagnostics.Debug.WriteLine("KEY: " + i.ID);
+
+				WorkoutItem w = new WorkoutItem
+				{
+					Name = i.Name,
+					Date = Convert.ToDateTime(i.Date),
+					Unit = i.Unit,
+					ID = i.ID
+				};
+
+				// get the set
+				List<SetDB> s = _connection.Query<SetDB>("SELECT [Amount] FROM [SetDB] WHERE [WorkoutItemID] = ?", i.ID);
+				var d = new ObservableCollection<double>();
+				System.Diagnostics.Debug.WriteLine("SET ITEMS: " + s.Count);
+				foreach (SetDB k in s)
+				{
+					d.Add(k.Amount);
+				}
+				w.Set = d;
+				coll.Add(w);
+			}
+
+			return coll;
+		}
+
 		public void WriteWorkout(WorkoutItem w)
 		{
 			/*Write the WorkoutItem (which is in our ViewModel) to the WorkoutItemDB and SetDB models*/

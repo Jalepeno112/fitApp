@@ -17,6 +17,9 @@ namespace fitApp.iOS
 					XamForms.Controls.iOS.Calendar.Init();
 					LoadApplication(new App());
 
+			// initialize Oxyplot renderers
+			OxyPlot.Xamarin.Forms.Platform.iOS.PlotViewRenderer.Init();
+
 			return base.FinishedLaunching(app, options);
 		}
 	}

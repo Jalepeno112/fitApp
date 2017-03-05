@@ -8,6 +8,8 @@ using Android.Views;
 using Android.Widget;
 using Android.OS;
 
+
+
 namespace fitApp.Droid
 {
 	[Activity(Label = "fitApp.Droid", Icon = "@drawable/icon", Theme = "@style/MyTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
@@ -24,6 +26,8 @@ namespace fitApp.Droid
 					// initialize calendar
 					XamForms.Controls.Droid.Calendar.Init();
 					LoadApplication(new App());
+			// initialize OxyPlot Renderer
+			OxyPlot.Xamarin.Forms.Platform.Android.PlotViewRenderer.Init();
 		}
 	}
 
