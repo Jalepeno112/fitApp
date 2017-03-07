@@ -27,10 +27,23 @@ namespace fitApp
 		{
 			var data = database.GetWorkouts(name);
 			GoalDB goal = database.GetGoal(name);
+			System.Diagnostics.Debug.WriteLine("GOAL: ", goal);
+			var subtitle = "";
+
+			// make sure the goal is set before trying to display it
+			if (goal == null)
+			{
+				subtitle = "Goal not set";
+			}
+			else
+			{
+				subtitle = goal.goal.ToString() + goal.unit;
+			}
+
 			var model = new PlotModel
 			{
 				Title = name,
-				Subtitle = "Goal: " + goal.goal.ToString() + goal.unit,
+				Subtitle = subtitle,
 				LegendPlacement = LegendPlacement.Outside,
 				LegendPosition = LegendPosition.BottomCenter,
 				LegendOrientation = LegendOrientation.Horizontal,
