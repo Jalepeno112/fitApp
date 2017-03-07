@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="fitApp.GoalsPage">
+	<ContentPage.Content>
+		<StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+			<Label x:Name="exerciseName" FontSize="36" HorizontalOptions="Center" VerticalOptions="Start"/>
+			<StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" VerticalOptions="Center">
+				<Label Text="Goal:" HorizontalOptions="Start" FontSize="24"/>
+				<Label x:Name="goalValue" HorizontalOptions="End" FontSize="24"/>
+			</StackLayout>
+			<Button x:Name="goToAnalyticsButton" Text="Go To Analytics" HorizontalOptions="Center" VerticalOptions = "Center"/>
+			<Button x:Name="editGoalButton" Text="Edit Goal" HorizontalOptions="Center" VerticalOptions="Center"/>
+		</StackLayout>
+	</ContentPage.Content>
+</ContentPage>

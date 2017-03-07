@@ -41,9 +41,10 @@ namespace fitApp
 			// if the table already exists, it will skip this part
 			_connection.CreateTable<WorkoutItemDB>();
 			_connection.CreateTable<SetDB>();
-
+			_connection.CreateTable<GoalDB>();
 
 		}
+
 		public void GenerateFakeData()
 		{
 			/*Put some fake data into the database*/
@@ -187,6 +188,25 @@ namespace fitApp
 			}
 		}
 
+		public GoalDB GetGoal(string name)
+		{
+			return _connection.Find<GoalDB>(name);
+		}
+
+		public void WriteGoal(GoalDB g)
+		{
+			//Delete the old goal if there is one
+			GoalDB del = new GoalDB
+			{
+				Name = g.Name
+			};
+			_connection.Delete(del);
+			           
+			//Insert the goal
+			int t = _connection.Insert(g);
+		}
+
+
 		public void RemoveWorkout(WorkoutItem w)
 		{
 			// delete the workout
@@ -233,5 +253,14 @@ namespace fitApp
 		// this is a foreign key that maps to the WorkoutItem.ID
 		public int WorkoutItemID { get; set; }
 		public double Amount { get; set; }
+	}
+
+	public class GoalDB
+	{
+		[PrimaryKey]
+		public string Name { get; set;} //Name of exercise
+
+		public double goal { get; set; } //Goal
+		public string unit { get; set;}
 	}
 }

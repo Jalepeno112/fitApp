@@ -31,9 +31,9 @@ namespace fitApp
 			var sendToGoals = new TapGestureRecognizer();
 			sendToGoals.Tapped += async (s, e) =>
 			{
-				await Navigation.PushAsync(new EditGoalPage());
+				await Navigation.PushAsync(new GoalListPage());
 			};
-			toGoals.GestureRecognizers.Add(sendToAnalytics);
+			toGoals.GestureRecognizers.Add(sendToGoals);
 
 			//enable tap on the timer page
 			var sendToTimer = new TapGestureRecognizer();

@@ -21,6 +21,7 @@ namespace fitApp
 			exerciseList.ItemTapped += async (s, e) =>
 			{
 				await Navigation.PushAsync(new GraphPage(((WorkoutItemDB)e.Item).Name));
+				((ListView)s).SelectedItem = null;
 			};
 		}
 	}

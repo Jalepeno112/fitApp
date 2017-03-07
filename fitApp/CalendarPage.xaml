@@ -13,7 +13,8 @@
 		<StackLayout x:Name="MainContent">
 			<controls:Calendar
 				Padding="10,10,10,10" 
-				VerticalOptions="FillAndExpand"
+				VerticalOptions="StartAndExpand"
+				MinimumHeightRequest="450"
 					SelectedBorderWidth="4" 
 					DisabledBorderColor="Black"
 					ShowNumberOfWeek="false"
@@ -29,8 +30,6 @@
 
 			<local:WorkoutItemView WorkoutList="{Binding Workout}" VerticalOptions="End">
 			</local:WorkoutItemView>
-
-
 		</StackLayout>
 	</ContentPage.Content>
 

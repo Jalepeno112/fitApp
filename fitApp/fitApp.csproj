@@ -53,6 +53,12 @@
     <EmbeddedResource Include="GraphPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
+    <EmbeddedResource Include="GoalsPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GoalListPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App.xaml.cs">
@@ -84,6 +90,12 @@
     </Compile>
     <Compile Include="GraphPage.cs">
       <DependentUpon>GraphPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="GoalsPage.xaml.cs">
+      <DependentUpon>GoalsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="GoalListPage.xaml.cs">
+      <DependentUpon>GoalListPage.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
