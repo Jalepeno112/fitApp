@@ -161,8 +161,9 @@ namespace fitApp
 			return coll;
 		}
 
-		public void WriteWorkout(WorkoutItem w)
+		public int WriteWorkout(WorkoutItem w)
 		{
+			/*return the ID of the workout after it's been added*/
 			/*Write the WorkoutItem (which is in our ViewModel) to the WorkoutItemDB and SetDB models*/
 			WorkoutItemDB wi = new WorkoutItemDB
 			{
@@ -186,6 +187,7 @@ namespace fitApp
 				t = _connection.Insert(s);
 				System.Diagnostics.Debug.WriteLine("LINES WRITTEN: " + t);
 			}
+			return key;
 		}
 
 		public GoalDB GetGoal(string name)

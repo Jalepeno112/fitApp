@@ -3,7 +3,8 @@
 	xmlns="http://xamarin.com/schemas/2014/forms" 
 	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
 	xmlns:local="clr-namespace:fitApp"
-	x:Class="fitApp.EditDayPage">
+	x:Class="fitApp.EditDayPage"
+	Title="Edit Workout">
 	<ContentPage.Content>
 		<ScrollView x:Name="MainContent">
 		</ScrollView>

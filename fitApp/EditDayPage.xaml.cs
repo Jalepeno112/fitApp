@@ -17,7 +17,7 @@ namespace fitApp
 		public void onEnter(Object sender, EventArgs e)
 		{
 			// here is where we will update our SQLite
-			// for know, we do it in memory
+			// for npw, we do it in memory
 
 		}
 	}

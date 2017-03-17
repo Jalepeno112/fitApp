@@ -82,7 +82,7 @@ namespace fitApp
 			{
 				return new Command<Button>((obj) =>
 				{
-					System.Diagnostics.Debug.WriteLine(obj.StyleId);
+					System.Diagnostics.Debug.WriteLine("Removing ID: " + obj.StyleId);
 
 					// the styleId is the ID of the object
 					int id = Convert.ToInt32(obj.StyleId);
@@ -122,55 +122,64 @@ namespace fitApp
 					// it represents a different property in the workout item we are creating
 					foreach (View child in sl.Children)
 					{
-						Entry e;
+						View e;
 						try
 						{
-							e = (Entry)child;
+							e = (View)child;
 						}
 						catch (System.InvalidCastException)
 						{
 							continue;
 						}
+
+						if (e == null)
+						{
+							continue;
+						}
+
 						if (String.Compare(e.StyleId, "ItemName") == 0)
 						{
-							if (String.Compare(e.Text, "") == 0 || e.Text == null)
+							Entry t = (Entry)child;
+							if (String.Compare(t.Text, "") == 0 || t.Text == null)
 							{
 								return;
 							}
-							wi.Name = e.Text;
-							e.Text = "";
+							wi.Name = t.Text;
+							t.Text = "";
 						}
 						else if (String.Compare(e.StyleId, "ItemUnit") == 0)
 						{
-							if (String.Compare(e.Text, "") == 0 || e.Text == null)
+							Picker p = (Picker)child;
+							string s = p.Items[p.SelectedIndex];
+							if (String.Compare(s, "") == 0 || s == null)
 							{
 								return;
 							}
-							wi.Unit = e.Text;
-							e.Text = "";
+							wi.Unit = s;
 						}
 						else if (String.Compare(e.StyleId, "Reps") == 0)
 						{
-
-							if (String.Compare(e.Text, "") == 0 || e.Text == null)
+							Entry t = (Entry)child;
+							if (String.Compare(t.Text, "") == 0 || t.Text == null)
 							{
 								return;
 							}
 							ObservableCollection<double> reps = new ObservableCollection<double>();
-							List<string> split = new List<string>(e.Text.Split(','));
+							List<string> split = new List<string>(t.Text.Split(','));
 							foreach (string s in split)
 							{
 								reps.Add(Convert.ToDouble(s));
 							}
 							wi.Set = reps;
-							e.Text = "";
+							t.Text = "";
 						}
 					}
 					wi.Date = Date;
 
 					// add to the list and commit to database
+					int index = database.WriteWorkout(wi);
+					wi.ID = index;
 					_workoutList.Add(wi);
-					database.WriteWorkout(wi);
 
 					// in order for the ObservableCollection to register the change, we have to assign it to a new object
 					// not pretty, but it gets the job done

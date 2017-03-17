@@ -46,7 +46,7 @@ namespace fitApp
 	 * If editable is set to true, then the view has some delete buttons, 
 	 * and has a form to allow a user to add a new workout
 	 */
-	public class WorkoutItemView : ScrollView
+	public class WorkoutItemView : ContentView
 	{
 		//http://stackoverflow.com/questions/41322399/xamarin-forms-mvvm-stacklayout-content-binding
 		// The WorkoutListProperty holds the list of WorkoutItems that we are displaying
@@ -116,24 +116,38 @@ namespace fitApp
 
 		public StackLayout DisplayWorkout(bool editable = false)
 		{
-			StackLayout stack = new StackLayout();
+			ScrollView scroll = new ScrollView();
+			StackLayout parent_stack = new StackLayout();
+			StackLayout workout_stack = new StackLayout{
+				VerticalOptions= LayoutOptions.FillAndExpand
+			};
+
+
 			System.Diagnostics.Debug.WriteLine("Generating view for " + WorkoutList.Count + " items");
 			for (int i = 0; i < WorkoutList.Count; i++)
 			{
 				// add a title
 				StackLayout title_container = new StackLayout { Orientation = StackOrientation.Horizontal };
-				Label title = new Label { Text = WorkoutList[i].Name, FontSize = Device.GetNamedSize(NamedSize.Medium, typeof(Label)) };
+				Label title = new Label { 
+					Text = WorkoutList[i].Name, 
+					FontSize = Device.GetNamedSize(NamedSize.Large, typeof(Label)),
+				};
 
 				if (WorkoutListEditable)
 				{
-					Button b = new Button { Text = "X", StyleId=WorkoutList[i].ID.ToString()};
+					Button b = new Button { 
+						Text = "X", 
+						StyleId = WorkoutList[i].ID.ToString(), 
+						FontSize = Device.GetNamedSize(NamedSize.Large, typeof(Label)),
+						TextColor = Color.Red
+					};
 					b.BindingContext = this.BindingContext;
 					b.SetBinding(Button.CommandProperty, "RemoveWorkoutItem");
 					b.SetBinding(Button.CommandParameterProperty, new Binding { Source = b });
 					title_container.Children.Add(b);
 				}
 				title_container.Children.Add(title);
-				stack.Children.Add(title_container);
+				workout_stack.Children.Add(title_container);
 
 				// create a grid to hold the underlying workout info
 				Grid g = new Grid();
@@ -158,12 +172,28 @@ namespace fitApp
 					g.Children.Add(new Label { Text = (j + 1).ToString() }, 0, j + 1);
 					g.Children.Add(new Label { Text = WorkoutList[i].Set[j].ToString() }, 1, j + 1);
 				}
-				stack.Children.Add(g);
+				// add grid to stack
+				workout_stack.Children.Add(g);
+
+				// add a stacklayout underneath the grid to create divider
+				workout_stack.Children.Add(new StackLayout
+				{
+					BackgroundColor = Color.Gray,
+					HeightRequest = 1,
+					HorizontalOptions = LayoutOptions.FillAndExpand
+				});
 			}
+			// add the workout list and it's scroll to the parent stack
+			scroll.Content = workout_stack;
+			parent_stack.Children.Add(scroll);
 
 			if (WorkoutListEditable)
 			{
-				StackLayout sl = new StackLayout();
+				StackLayout sl = new StackLayout
+				{
+					Padding = new Thickness { Top=20 },
+					VerticalOptions = LayoutOptions.FillAndExpand
+				};
 				Label l = new Label
 				{
 					Text = "Add Another Item",
@@ -172,8 +202,14 @@ namespace fitApp
 				};
 
 				Entry name = new Entry { Placeholder = "Item Name", StyleId="ItemName"};
-				Entry unit = new Entry { Placeholder = "Item unit (minutes, weight, etc.)", StyleId="ItemUnit"};
+				Picker unit = new Picker { Title="Unit",  StyleId="ItemUnit"};
 				Entry rep1 = new Entry { Placeholder = "Add each rep with a comma in between", StyleId="Reps" };
+
+				// add the unit selection options
+				unit.Items.Add("Minutes");
+				unit.Items.Add("Repetitions");
+				unit.Items.Add("Weight");
+				unit.SelectedIndex = 0;
 
 				sl.Children.Add(l);
 				sl.Children.Add(name);
@@ -186,10 +222,10 @@ namespace fitApp
 				b.SetBinding(Button.CommandProperty, "AddNewWorkout");
 				b.SetBinding(Button.CommandParameterProperty, new Binding { Source = sl });
 				sl.Children.Add(b);
-				stack.Children.Add(sl);
+				parent_stack.Children.Add(sl);
 			}
 
-			return stack;
+			return parent_stack;
 		}
 	}
 }

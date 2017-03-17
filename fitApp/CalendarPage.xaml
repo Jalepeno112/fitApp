@@ -28,7 +28,7 @@
 				<Button x:Name="EditBtn" Text="Edit Workout" HorizontalOptions="FillAndExpand"></Button>
 			</StackLayout>
 
-			<local:WorkoutItemView WorkoutList="{Binding Workout}" VerticalOptions="End">
+			<local:WorkoutItemView WorkoutList="{Binding Workout}" VerticalOptions="Fill">
 			</local:WorkoutItemView>
 		</StackLayout>
 	</ContentPage.Content>
