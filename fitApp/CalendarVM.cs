@@ -116,6 +116,10 @@ namespace fitApp
 				{
 					WorkoutItem wi = new WorkoutItem();
 
+					Entry item_name = new Entry();
+					Picker item_unit;
+					Entry reps_field = new Entry();
+
 					// for each child of the stack layout, try and convert it to an Entry
 					// if it can't be converted, we aren't interested in it.
 					// Depending on what the name of the field is, 
@@ -137,20 +141,20 @@ namespace fitApp
 							continue;
 						}
 
+						// check the views style_id to get the corresponding values
 						if (String.Compare(e.StyleId, "ItemName") == 0)
 						{
-							Entry t = (Entry)child;
-							if (String.Compare(t.Text, "") == 0 || t.Text == null)
+							item_name = (Entry)child;
+							if (String.Compare(item_name.Text, "") == 0 || item_name.Text == null)
 							{
 								return;
 							}
-							wi.Name = t.Text;
-							t.Text = "";
+							wi.Name = item_name.Text;
 						}
 						else if (String.Compare(e.StyleId, "ItemUnit") == 0)
 						{
-							Picker p = (Picker)child;
-							string s = p.Items[p.SelectedIndex];
+							item_unit = (Picker)child;
+							string s = item_unit.Items[item_unit.SelectedIndex];
 							if (String.Compare(s, "") == 0 || s == null)
 							{
 								return;
@@ -159,22 +163,38 @@ namespace fitApp
 						}
 						else if (String.Compare(e.StyleId, "Reps") == 0)
 						{
-							Entry t = (Entry)child;
-							if (String.Compare(t.Text, "") == 0 || t.Text == null)
+							reps_field = (Entry)child;
+							if (String.Compare(reps_field.Text, "") == 0 || reps_field.Text == null)
 							{
 								return;
 							}
 							ObservableCollection<double> reps = new ObservableCollection<double>();
-							List<string> split = new List<string>(t.Text.Split(','));
+							List<string> split = new List<string>(reps_field.Text.Split(','));
 							foreach (string s in split)
 							{
-								reps.Add(Convert.ToDouble(s));
+								// try and convert each value into a double
+								// if it can't be converted, raise an error
+								try
+								{
+									reps.Add(Convert.ToDouble(s));
+								}catch(System.FormatException) {
+									String err_msg = String.Format("Value '{0}' is not a number. Please try again.", s);
+									App.Current.MainPage.DisplayAlert(
+										"Error", 
+										err_msg,
+										"OK"
+									);
+									return;
+								}
 							}
 							wi.Set = reps;
-							t.Text = "";
 						}
 					}
 					wi.Date = Date;
+
+					// clear the existing fields
+					item_name.Text = "";
+					reps_field.Text = "";
 
 					// add to the list and commit to database
 					int index = database.WriteWorkout(wi);
