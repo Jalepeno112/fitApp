@@ -16,11 +16,15 @@
 				 <Setter Property="HorizontalOptions"
 		                Value="Center" />
 		        <Setter Property="VerticalOptions"
-		                Value="End" />
+		                Value="EndAndExpand" />
 				<Setter Property="FontSize"
-						Value="Medium" />
+						Value="Large" />
 				<Setter Property="TextColor"
 						Value="White" />
+			</Style>
+			<Style TargetType="Image">
+				<Setter Property="HorizontalOptions" Value="FillAndExpand"/>
+				<Setter Property="VerticalOptions" Value="FillAndExpand"/>
 			</Style>
 		</ResourceDictionary>
 	</ContentPage.Resources>
@@ -42,7 +46,10 @@
 				VerticalOptions="FillAndExpand"
 				Grid.Row="0" Grid.Column="0">
 				<StackLayout>
-					<Image Source="https://maxcdn.icons8.com/iOS7/PNG/75/Time_And_Date/calendar-75.png"></Image>
+					<Image 
+						Source="https://maxcdn.icons8.com/iOS7/PNG/75/Time_And_Date/calendar-75.png"
+						>
+					</Image>
 					<Label Text="Calendar" Style="{StaticResource labelStyle}"></Label>
 				</StackLayout>
 			</Frame>
@@ -63,7 +70,7 @@
 				HorizontalOptions="FillAndExpand" 
 				VerticalOptions="FillAndExpand"
 				Grid.Row="1" Grid.Column="0">
-				<StackLayout>
+				<StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
 					<Image Source="https://maxcdn.icons8.com/iOS7/PNG/75/Data/bar_chart_filled-75.png"></Image>
 					<Label Text="Goals" Style="{StaticResource labelStyle}"></Label>
 				</StackLayout>
@@ -74,7 +81,7 @@
 				HorizontalOptions="FillAndExpand" 
 				VerticalOptions="FillAndExpand"
 				Grid.Row="1" Grid.Column="1">
-				<StackLayout>
+				<StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
 					<Image Source="https://maxcdn.icons8.com/iOS7/PNG/75/Time_And_Date/timer-75.png"></Image>
 					<Label Text="Timer" Style="{StaticResource labelStyle}"></Label>
 				</StackLayout>
@@ -85,10 +92,9 @@
 				HorizontalOptions="FillAndExpand" 
 				VerticalOptions="FillAndExpand"
 				Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2">
-				<StackLayout>
+				<StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
 					<Image Source="https://maxcdn.icons8.com/iOS7/PNG/100/Media_Controls/play_filled-100.png" 
-						WidthRequest="300" 
-						HorizontalOptions="FillAndExpand">
+						WidthRequest="300" HorizontalOptions="Center">
 					</Image>
 					<Label Text="Start Workout" Style="{StaticResource labelStyle}"></Label>
 				</StackLayout>
