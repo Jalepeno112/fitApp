@@ -23,6 +23,15 @@ namespace fitApp
 				await Navigation.PushAsync(new GraphPage(((WorkoutItemDB)e.Item).Name));
 				((ListView)s).SelectedItem = null;
 			};
+
+			ToolbarItem tbItem = new ToolbarItem();
+			tbItem.Text = "Times";
+			tbItem.Clicked += async (sender, e) =>
+			{
+				await Navigation.PushAsync(new GraphPage("_time"));
+				exerciseList.SelectedItem = null;
+			};
+			ToolbarItems.Add(tbItem);
 		}
 	}
 }

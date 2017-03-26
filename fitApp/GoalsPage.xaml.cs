@@ -38,10 +38,10 @@ namespace fitApp
 			database = new FitAppDatabase(DependencyService.Get<IFileHelper>().GetLocalFilePath("fitAppDatabase.db3"));
 			GoalDB gdb = database.GetGoal(_name);
 			if (gdb == null)
-				goalValue.Text = "None";
+				goalValue.Text = "  None";
 			else
 			{
-				goalValue.Text = gdb.goal.ToString() + gdb.unit.ToString();
+				goalValue.Text = gdb.goal.ToString() + " " + gdb.unit.ToString();
 			}
 		}
 	}

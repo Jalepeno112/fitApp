@@ -18,9 +18,6 @@ namespace fitApp
 
 			System.Diagnostics.Debug.WriteLine(vm.Workout);
 
-			// generate fake data
-			vm.database.GenerateFakeData();
-
 			InitializeComponent();
 
 			vm.Date = System.DateTime.Now;
@@ -208,7 +205,8 @@ namespace fitApp
 				// add the unit selection options
 				unit.Items.Add("Minutes");
 				unit.Items.Add("Repetitions");
-				unit.Items.Add("Weight");
+				unit.Items.Add("Kgs");
+				unit.Items.Add("Lbs");
 				unit.SelectedIndex = 0;
 
 				sl.Children.Add(l);

@@ -97,6 +97,7 @@
     <Compile Include="GoalListPage.xaml.cs">
       <DependentUpon>GoalListPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Stopwatch.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Xamarin.Forms.Core">

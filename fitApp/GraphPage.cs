@@ -6,6 +6,7 @@ using OxyPlot;
 using OxyPlot.Axes;
 using OxyPlot.Xamarin.Forms;
 using OxyPlot.Series;
+using System.Collections.ObjectModel;
 
 namespace fitApp
 {
@@ -18,11 +19,59 @@ namespace fitApp
 		{
 			InitializeComponent();
 			name = _name;
-			OxyPlot.Xamarin.Forms.PlotView plotview = new PlotView() { Model = CreatePlotModel() };
+			PlotView plotview;
+			if (_name == "_time")
+				plotview = new PlotView() { Model = CreateTimeModel() };
+			else
+				plotview = new PlotView() { Model = CreatePlotModel() };
 			Content = plotview;
 		}
 
+		/*
+		 * If we are graphing the time, we have to treat this a little differently
+		 * There is only one time per date,so we will be using a line graph
+		 *
+		 */
+		private PlotModel CreateTimeModel()
+		{
+			List<WorkoutTimeDB> data = (List<WorkoutTimeDB>)database.GetWorkoutTimes();
 
+			var model = new PlotModel
+			{
+				Title = name,
+				LegendPlacement = LegendPlacement.Outside,
+				LegendPosition = LegendPosition.BottomCenter,
+				LegendOrientation = LegendOrientation.Horizontal,
+				LegendBorderThickness = 0
+			};
+			var series = new LineSeries()
+			{
+				Color = OxyColors.SkyBlue,
+				MarkerType = MarkerType.Circle,
+				MarkerSize = 6,
+				MarkerStroke = OxyColors.White,
+				MarkerFill = OxyColors.SkyBlue,
+				MarkerStrokeThickness = 1.5
+			};
+			DateTimeAxis xaxis = new DateTimeAxis { Position = AxisPosition.Bottom };
+			xaxis.StringFormat = "M/d";
+			xaxis.Minimum = DateTimeAxis.ToDouble(DateTime.Parse(data[0].Date));
+			DateTimeAxis yaxis = new DateTimeAxis { Position = AxisPosition.Left };
+			model.Axes.Add(xaxis);
+			model.Axes.Add(yaxis);
+			foreach (WorkoutTimeDB _data in data)
+			{
+				series.Points.Add(DateTimeAxis.CreateDataPoint(DateTime.Parse(_data.Date), DateTime.Parse(_data.Time)));
+			}
+
+			model.Series.Add(series);
+			return model;
+		}
+
+		/*
+		 * If we are graphing the exercises, a line graph won't do, so we use a 
+		 * column graph to display each set in different colors
+		 */
 		private PlotModel CreatePlotModel()
 		{
 			var data = database.GetWorkouts(name);

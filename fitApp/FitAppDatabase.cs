@@ -42,7 +42,7 @@ namespace fitApp
 			_connection.CreateTable<WorkoutItemDB>();
 			_connection.CreateTable<SetDB>();
 			_connection.CreateTable<GoalDB>();
-
+			_connection.CreateTable<WorkoutTimeDB>();
 		}
 
 		public void GenerateFakeData()
@@ -205,7 +205,7 @@ namespace fitApp
 			_connection.Delete(del);
 			           
 			//Insert the goal
-			int t = _connection.Insert(g);
+			_connection.Insert(g);
 		}
 
 
@@ -220,6 +220,29 @@ namespace fitApp
 
 			// delete the sets that belong to that ID
 			_connection.Execute("DELETE FROM [SetDB] WHERE [WorkoutItemID] = ?", w.ID);
+		}
+
+		public WorkoutTimeDB GetWorkoutTime(string date)
+		{
+			return _connection.Find<WorkoutTimeDB>(date);
+		}
+
+		//Gets the times of all of the user's workouts
+		public IEnumerable<WorkoutTimeDB> GetWorkoutTimes()
+		{
+			return _connection.Query<WorkoutTimeDB>("SELECT * FROM [WorkoutTimeDB] ORDER BY DATE");
+		}
+
+
+		public void WriteWorkoutTime(WorkoutTimeDB w)
+		{
+			WorkoutTimeDB del = new WorkoutTimeDB
+			{
+				Date = w.Date
+			};
+			_connection.Delete(del);
+
+			_connection.Insert(w);
 		}
 
 	}
@@ -264,5 +287,14 @@ namespace fitApp
 
 		public double goal { get; set; } //Goal
 		public string unit { get; set;}
+	}
+
+	public class WorkoutTimeDB
+	{
+		[PrimaryKey, AutoIncrement]
+		public int ID { get; set; }
+
+		public string Date { get; set; }
+		public string Time { get; set; }
 	}
 }

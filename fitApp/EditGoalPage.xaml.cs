@@ -17,15 +17,20 @@ namespace fitApp
 			unitEntryFinished = false;
 			finishButton.IsEnabled = false;
 
+			unitEntry.Items.Add("Minutes");
+			unitEntry.Items.Add("Repetitions");
+			unitEntry.Items.Add("Kgs");
+			unitEntry.Items.Add("Lbs");
+			unitEntry.SelectedIndex = 0;
+
 			valueEntry.TextChanged += OnTextChanged;
-			unitEntry.TextChanged += OnTextChanged;
 
 			finishButton.Clicked += (sender, e) =>
 			{
 				GoalDB gdb = new GoalDB
 				{
 					Name = name,
-					unit = unitEntry.Text,
+					unit = unitEntry.Items[unitEntry.SelectedIndex],
 					goal = Double.Parse(valueEntry.Text)
 				};
 				database.WriteGoal(gdb);
@@ -39,11 +44,9 @@ namespace fitApp
 			{
 				if (sender == valueEntry)
 					valueEntryFinished = true;
-				if (sender == unitEntry)
-					unitEntryFinished = true;
 			}
 
-			if (valueEntryFinished == true && unitEntryFinished == true)
+			if (valueEntryFinished == true)
 			{
 				finishButton.IsEnabled = true;
 			}

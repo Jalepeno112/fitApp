@@ -1,7 +1,7 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="fitApp.GoalsPage">
 	<ContentPage.Content>
-		<StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+		<StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Padding="10,10,10,0">
 			<Label x:Name="exerciseName" FontSize="36" HorizontalOptions="Center" VerticalOptions="Start"/>
 			<StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" VerticalOptions="Center">
 				<Label Text="Goal:" HorizontalOptions="Start" FontSize="24"/>
